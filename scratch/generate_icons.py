@@ -21,23 +21,17 @@ def render_icon(size=512, is_round=False):
     draw.rectangle([0, 0, w, h], fill=bg_yellow)
 
     # 2. Middle lavender layer
-    # In inspo:
-    # Left edge starts slightly indented with rounded corner, curving up to y=0.28,
-    # then sloping gently to y=0.38 at the right edge
     lav_points = []
     lav_points.append((0, h))
-    lav_points.append((0, int(h * 0.40)))
+    lav_points.append((0, int(h * 0.38)))
 
     steps = 100
     for i in range(steps + 1):
         t = i / float(steps)
-        # Bezier curve for top of purple card:
-        # Starts at (0.01, 0.38), rises sharply around left shoulder to (0.06, 0.28),
-        # crests at (0.18, 0.28), then slopes gently to (1.0, 0.39)
         p0 = (0.00, 0.38)
-        p1 = (0.05, 0.27)
-        p2 = (0.45, 0.30)
-        p3 = (1.00, 0.39)
+        p1 = (0.06, 0.27)
+        p2 = (0.42, 0.30)
+        p3 = (1.00, 0.40)
         
         x = ((1-t)**3 * p0[0] + 3*(1-t)**2*t * p1[0] + 3*(1-t)*t**2 * p2[0] + t**3 * p3[0]) * w
         y = ((1-t)**3 * p0[1] + 3*(1-t)**2*t * p1[1] + 3*(1-t)*t**2 * p2[1] + t**3 * p3[1]) * h
@@ -47,19 +41,16 @@ def render_icon(size=512, is_round=False):
     draw.polygon(lav_points, fill=mid_lavender)
 
     # 3. Bottom midnight dark layer
-    # In inspo:
-    # Starts on left around y=0.55, dips slightly to y=0.51 in middle,
-    # then rises to a soft crest on right around (0.85, 0.49), then drops to (1.0, 0.54)
     dark_points = []
     dark_points.append((0, h))
-    dark_points.append((0, int(h * 0.55)))
+    dark_points.append((0, int(h * 0.58)))
 
     for i in range(steps + 1):
         t = i / float(steps)
-        p0 = (0.00, 0.55)
-        p1 = (0.40, 0.51)
-        p2 = (0.82, 0.47)
-        p3 = (1.00, 0.53)
+        p0 = (0.00, 0.58)
+        p1 = (0.35, 0.54)
+        p2 = (0.80, 0.50)
+        p3 = (1.00, 0.56)
         
         x = ((1-t)**3 * p0[0] + 3*(1-t)**2*t * p1[0] + 3*(1-t)*t**2 * p2[0] + t**3 * p3[0]) * w
         y = ((1-t)**3 * p0[1] + 3*(1-t)**2*t * p1[1] + 3*(1-t)*t**2 * p2[1] + t**3 * p3[1]) * h
@@ -70,10 +61,10 @@ def render_icon(size=512, is_round=False):
 
     # 4. White rounded checkmark
     # Position: in bottom-left quadrant of the dark layer
-    chk_start = (int(w * 0.19), int(h * 0.62))
-    chk_mid = (int(w * 0.26), int(h * 0.69))
-    chk_end = (int(w * 0.35), int(h * 0.58))
-    chk_width = int(w * 0.046)
+    chk_start = (int(w * 0.19), int(h * 0.64))
+    chk_mid = (int(w * 0.27), int(h * 0.72))
+    chk_end = (int(w * 0.38), int(h * 0.60))
+    chk_width = int(w * 0.052)
 
     # Draw rounded checkmark segments
     draw.line([chk_start, chk_mid], fill=white_check, width=chk_width)
@@ -99,79 +90,6 @@ def render_icon(size=512, is_round=False):
     # Downscale smoothly with high-quality Lanczos filter
     final_img = output.resize((size, size), Image.Resampling.LANCZOS)
     return final_img
-
-def render_adaptive_foreground(size=432):
-    # Render adaptive icon foreground (full 108dp canvas at specified px)
-    # The central 72dp is the viewport (from x=18dp to 90dp, y=18dp to 90dp)
-    # Scale = size / 108dp
-    scale = 4
-    w = size * scale
-    h = size * scale
-
-    mid_lavender = (145, 122, 244, 255)
-    bottom_dark = (16, 20, 26, 255)
-    white_check = (255, 255, 255, 255)
-
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-
-    # In adaptive 108 canvas:
-    # viewport x: 0.167 to 0.833, y: 0.167 to 0.833
-    # Middle lavender card:
-    # Across full width (0 to 1), at y corresponding to:
-    # y = 0.167 + (0.28 to 0.39) * 0.666 = 0.35 to 0.42
-    lav_points = []
-    lav_points.append((0, h))
-    lav_points.append((0, int(h * 0.43)))
-
-    steps = 100
-    for i in range(steps + 1):
-        t = i / float(steps)
-        p0 = (0.00, 0.43)
-        p1 = (0.15, 0.33)
-        p2 = (0.45, 0.35)
-        p3 = (1.00, 0.43)
-        
-        x = ((1-t)**3 * p0[0] + 3*(1-t)**2*t * p1[0] + 3*(1-t)*t**2 * p2[0] + t**3 * p3[0]) * w
-        y = ((1-t)**3 * p0[1] + 3*(1-t)**2*t * p1[1] + 3*(1-t)*t**2 * p2[1] + t**3 * p3[1]) * h
-        lav_points.append((int(x), int(y)))
-    
-    lav_points.append((w, h))
-    draw.polygon(lav_points, fill=mid_lavender)
-
-    # Bottom dark card:
-    dark_points = []
-    dark_points.append((0, h))
-    dark_points.append((0, int(h * 0.55)))
-
-    for i in range(steps + 1):
-        t = i / float(steps)
-        p0 = (0.00, 0.55)
-        p1 = (0.40, 0.51)
-        p2 = (0.80, 0.48)
-        p3 = (1.00, 0.53)
-        
-        x = ((1-t)**3 * p0[0] + 3*(1-t)**2*t * p1[0] + 3*(1-t)*t**2 * p2[0] + t**3 * p3[0]) * w
-        y = ((1-t)**3 * p0[1] + 3*(1-t)**2*t * p1[1] + 3*(1-t)*t**2 * p2[1] + t**3 * p3[1]) * h
-        dark_points.append((int(x), int(y)))
-
-    dark_points.append((w, h))
-    draw.polygon(dark_points, fill=bottom_dark)
-
-    # Checkmark in bottom-left quadrant of visible area:
-    chk_start = (int(w * 0.29), int(h * 0.65))
-    chk_mid = (int(w * 0.35), int(h * 0.71))
-    chk_end = (int(w * 0.43), int(h * 0.62))
-    chk_width = int(w * 0.035)
-
-    draw.line([chk_start, chk_mid], fill=white_check, width=chk_width)
-    draw.line([chk_mid, chk_end], fill=white_check, width=chk_width)
-    r = chk_width // 2
-    draw.ellipse([chk_start[0]-r, chk_start[1]-r, chk_start[0]+r, chk_start[1]+r], fill=white_check)
-    draw.ellipse([chk_mid[0]-r, chk_mid[1]-r, chk_mid[0]+r, chk_mid[1]+r], fill=white_check)
-    draw.ellipse([chk_end[0]-r, chk_end[1]-r, chk_end[0]+r, chk_end[1]+r], fill=white_check)
-
-    return img.resize((size, size), Image.Resampling.LANCZOS)
 
 def generate_all_android_icons(res_dir):
     densities = {

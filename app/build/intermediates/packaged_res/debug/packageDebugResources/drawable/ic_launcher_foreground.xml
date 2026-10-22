@@ -8,9 +8,9 @@
     <!-- Middle Layer: Soft Periwinkle Lavender Card Layer with organic shoulder -->
     <path
         android:fillColor="#917AF4"
-        android:pathData="M 0,44
-            C 12,34 32,33 54,35
-            C 75,37 95,41 108,44
+        android:pathData="M 0,40
+            C 8,30 24,31 46,33
+            C 72,35 94,40 108,45
             L 108,108
             L 0,108
             Z" />
@@ -18,9 +18,9 @@
     <!-- Bottom Layer: Midnight Charcoal Card Layer -->
     <path
         android:fillColor="#10141A"
-        android:pathData="M 0,56
-            C 35,53 65,51 86,49
-            C 96,48 103,50 108,54
+        android:pathData="M 0,60
+            C 30,57 55,56 82,53
+            C 92,52 101,54 108,58
             L 108,108
             L 0,108
             Z" />
@@ -28,9 +28,9 @@
     <!-- Bold, Clean Rounded White Checkmark (positioned in bottom-left safe quadrant) -->
     <path
         android:strokeColor="#FFFFFF"
-        android:strokeWidth="4.2"
+        android:strokeWidth="5.2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:fillColor="#00000000"
-        android:pathData="M 31,67 L 38,74 L 47,64" />
+        android:pathData="M 31,70 L 39,78 L 51,66" />
 </vector>
