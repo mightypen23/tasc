@@ -1,17 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Retro Book / Log Icon in Sinopia and Vanilla -->
+
+    <!-- Middle Layer: Soft Periwinkle Lavender Card Layer with organic shoulder -->
     <path
-        android:fillColor="#E0DDAE"
-        android:pathData="M30,24 h48 c3.3,0 6,2.7 6,6 v48 c0,3.3 -2.7,6 -6,6 H30 c-3.3,0 -6,-2.7 -6,-6 V30 c0,-3.3 2.7,-6 6,-6 z" />
+        android:fillColor="#917AF4"
+        android:pathData="M 0,44
+            C 12,34 32,33 54,35
+            C 75,37 95,41 108,44
+            L 108,108
+            L 0,108
+            Z" />
+
+    <!-- Bottom Layer: Midnight Charcoal Card Layer -->
     <path
-        android:fillColor="#D7340B"
-        android:pathData="M24,30 c0,-3.3 2.7,-6 6,-6 h6 v60 h-6 c-3.3,0 -6,-2.7 -6,-6 z" />
-    <!-- Pen / Quill line -->
+        android:fillColor="#10141A"
+        android:pathData="M 0,56
+            C 35,53 65,51 86,49
+            C 96,48 103,50 108,54
+            L 108,108
+            L 0,108
+            Z" />
+
+    <!-- Bold, Clean Rounded White Checkmark (positioned in bottom-left safe quadrant) -->
     <path
-        android:fillColor="#336467"
-        android:pathData="M44,40 h26 v4 H44 z M44,52 h26 v4 H44 z M44,64 h18 v4 H44 z" />
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M 31,67 L 38,74 L 47,64" />
 </vector>
