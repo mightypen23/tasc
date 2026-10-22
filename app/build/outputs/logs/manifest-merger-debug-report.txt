@@ -135,7 +135,7 @@ ADDED from C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\AndroidM
 receiver#com.mightypen.tasc.receiver.TaskAlarmReceiver
 ADDED from C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\AndroidManifest.xml:28:9-36:20
 	android:exported
-		ADDED from C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\AndroidManifest.xml:30:13-37
+		ADDED from C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\AndroidManifest.xml:30:13-36
 	android:name
 		ADDED from C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\AndroidManifest.xml:29:13-55
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:com.mightypen.tasc.ACTION_MARK_DONE+action:name:com.mightypen.tasc.ACTION_TASK_REMINDER

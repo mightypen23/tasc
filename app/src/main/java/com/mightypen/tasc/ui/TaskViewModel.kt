@@ -145,6 +145,24 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     init {
         // Load tasks for today on startup
         refreshCurrentDayTasks(direction = 0)
+
+        // Real-time ticker to auto-mark tasks as OVERDUE when their interval finishes
+        viewModelScope.launch {
+            while (true) {
+                kotlinx.coroutines.delay(4000L)
+                val currentTasks = _dayTasksState.value.tasks
+                val now = java.time.LocalDateTime.now()
+                val anyBecameOverdue = currentTasks.any {
+                    it.status != TaskStatus.COMPLETED &&
+                    it.status != TaskStatus.REJECTED &&
+                    it.status != TaskStatus.OVERDUE &&
+                    com.mightypen.tasc.model.isOverdue(it, now)
+                }
+                if (anyBecameOverdue) {
+                    refreshCurrentDayTasks(direction = 0)
+                }
+            }
+        }
     }
 
     private fun refreshCurrentDayTasks(direction: Int = 0) {

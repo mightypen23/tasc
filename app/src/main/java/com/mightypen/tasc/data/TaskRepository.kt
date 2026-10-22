@@ -17,17 +17,36 @@ class TaskRepository(context: Context) {
     val tasksFlow: StateFlow<List<Task>> = _tasksFlow.asStateFlow()
 
     fun getTasksForDateSync(date: String): List<Task> {
-        return dbHelper.getTasksForDate(date)
+        val list = dbHelper.getTasksForDate(date)
+        return checkAndPromoteOverdueTasks(list)
     }
 
     fun getTaskById(id: Long): Task? {
         return dbHelper.getTaskById(id)
     }
 
+    private fun checkAndPromoteOverdueTasks(tasks: List<Task>): List<Task> {
+        val now = java.time.LocalDateTime.now()
+        return tasks.map { task ->
+            if (task.status != TaskStatus.COMPLETED &&
+                task.status != TaskStatus.REJECTED &&
+                task.status != TaskStatus.OVERDUE &&
+                com.mightypen.tasc.model.isOverdue(task, now)
+            ) {
+                val overdueTask = task.copy(status = TaskStatus.OVERDUE, progress = 100)
+                dbHelper.updateTask(overdueTask)
+                overdueTask
+            } else {
+                task
+            }
+        }
+    }
+
     suspend fun loadTasksForDate(date: String) {
         currentDate = date
         val list = withContext(Dispatchers.IO) {
-            dbHelper.getTasksForDate(date)
+            val raw = dbHelper.getTasksForDate(date)
+            checkAndPromoteOverdueTasks(raw)
         }
         _tasksFlow.value = list
     }
@@ -57,15 +76,25 @@ class TaskRepository(context: Context) {
     }
 
     suspend fun toggleTaskCompleted(task: Task): Boolean {
-        val newStatus = if (task.status == TaskStatus.COMPLETED) TaskStatus.RUNNING else TaskStatus.COMPLETED
-        val newProgress = if (newStatus == TaskStatus.COMPLETED) 100 else 50
-        val updated = task.copy(status = newStatus, progress = newProgress)
+        val isNowCompleted = task.status != TaskStatus.COMPLETED
+        val updated = if (isNowCompleted) {
+            // Task marked complete before or at interval end: freeze at current elapsed percentage
+            val progressAtCompletion = com.mightypen.tasc.model.calculateElapsedProgress(task)
+            task.copy(status = TaskStatus.COMPLETED, progress = progressAtCompletion)
+        } else {
+            // Uncompleting: if interval has already passed, revert to OVERDUE; else RUNNING
+            val isNowOverdue = com.mightypen.tasc.model.isOverdue(task)
+            val restoredStatus = if (isNowOverdue) TaskStatus.OVERDUE else TaskStatus.RUNNING
+            val restoredProgress = if (isNowOverdue) 100 else 0
+            task.copy(status = restoredStatus, progress = restoredProgress)
+        }
         return updateTask(updated)
     }
 
     suspend fun updateTaskStatus(task: Task, status: TaskStatus): Boolean {
         val newProgress = when (status) {
-            TaskStatus.COMPLETED -> 100
+            TaskStatus.COMPLETED -> com.mightypen.tasc.model.calculateElapsedProgress(task)
+            TaskStatus.OVERDUE -> 100
             TaskStatus.REJECTED -> 0
             TaskStatus.UPCOMING -> 0
             TaskStatus.RUNNING -> if (task.progress == 0 || task.progress == 100) 50 else task.progress

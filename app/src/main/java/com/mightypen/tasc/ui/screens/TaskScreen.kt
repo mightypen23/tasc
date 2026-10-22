@@ -375,6 +375,12 @@ private fun TaskRowItem(
 ) {
     val palette = getCardPalette(task.colorTheme, task.customColorHex)
 
+    val timelineActiveColor = when {
+        task.status == com.mightypen.tasc.model.TaskStatus.COMPLETED -> Color(0xFF8899AA)
+        task.status == com.mightypen.tasc.model.TaskStatus.OVERDUE -> Color(0xFFFF5252)
+        else -> palette.background
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -382,7 +388,7 @@ private fun TaskRowItem(
         // Left Column: Timeline timestamps and live elapsed time counting connector line
         TimelineColumn(
             task = task,
-            activeColor = palette.background,
+            activeColor = timelineActiveColor,
             height = cardHeightDp.dp
         )
 

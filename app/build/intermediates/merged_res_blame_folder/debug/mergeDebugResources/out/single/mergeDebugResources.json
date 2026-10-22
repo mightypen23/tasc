@@ -8,6 +8,14 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-main-50:\\drawable\\ic_launcher_background.xml"
     },
     {
+        "merged": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-debug-48:\\drawable_ic_notification_folder.xml.flat",
+        "source": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-main-50:\\drawable\\ic_notification_folder.xml"
+    },
+    {
+        "merged": "com.mightypen.tasc.app-debug-48:/drawable_notification_folder_body_bg.xml.flat",
+        "source": "com.mightypen.tasc.app-main-50:/drawable/notification_folder_body_bg.xml"
+    },
+    {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-debug-48:\\drawable_notification_folder_tab_bg.xml.flat",
         "source": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-main-50:\\drawable\\notification_folder_tab_bg.xml"
     },
@@ -20,12 +28,12 @@
         "source": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-main-50:\\drawable\\notification_btn_action_bg.xml"
     },
     {
-        "merged": "com.mightypen.tasc.app-debug-48:/layout_notification_folder_collapsed.xml.flat",
-        "source": "com.mightypen.tasc.app-main-50:/layout/notification_folder_collapsed.xml"
+        "merged": "com.mightypen.tasc.app-debug-48:/drawable_notification_folder_tab_bg.xml.flat",
+        "source": "com.mightypen.tasc.app-main-50:/drawable/notification_folder_tab_bg.xml"
     },
     {
-        "merged": "com.mightypen.tasc.app-debug-48:/drawable_ic_notification_folder.xml.flat",
-        "source": "com.mightypen.tasc.app-main-50:/drawable/ic_notification_folder.xml"
+        "merged": "com.mightypen.tasc.app-debug-48:/layout_notification_folder_collapsed.xml.flat",
+        "source": "com.mightypen.tasc.app-main-50:/layout/notification_folder_collapsed.xml"
     },
     {
         "merged": "C:\\Users\\hp\\.gradle\\daemon\\9.3.1\\com.mightypen.tasc.app-debug-48:\\layout_notification_folder_collapsed.xml.flat",

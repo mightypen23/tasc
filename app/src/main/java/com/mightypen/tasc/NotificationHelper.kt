@@ -292,12 +292,12 @@ object NotificationHelper {
 
         try {
             val density = context.resources.displayMetrics.density
-            val tabWidth = (90 * density).toInt()
-            val tabHeight = (26 * density).toInt()
+            val tabWidth = (72 * density).toInt()
+            val tabHeight = (18 * density).toInt()
             val tabBitmap = createColoredBitmap(context, R.drawable.notification_folder_tab_bg, palette.backgroundColor, tabWidth, tabHeight)
 
             val bodyWidth = (360 * density).toInt()
-            val bodyHeight = (120 * density).toInt()
+            val bodyHeight = (80 * density).toInt()
             val bodyBitmap = createColoredBitmap(context, R.drawable.notification_folder_body_bg, palette.backgroundColor, bodyWidth, bodyHeight)
 
             // 1. Collapsed View

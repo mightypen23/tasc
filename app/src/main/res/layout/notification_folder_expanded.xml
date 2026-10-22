@@ -3,23 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="4dp"
-    android:paddingEnd="4dp"
-    android:paddingTop="2dp"
-    android:paddingBottom="4dp">
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:paddingTop="1dp"
+    android:paddingBottom="2dp">
 
     <!-- Folder Tab Notch Row -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="26dp"
+        android:layout_height="18dp"
         android:orientation="horizontal"
         android:gravity="bottom">
 
         <!-- Manila Folder Tab Notch -->
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
-            android:minWidth="90dp">
+            android:layout_height="18dp"
+            android:minWidth="72dp">
 
             <ImageView
                 android:id="@+id/notification_tab_bg"
@@ -33,12 +33,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:text="WORK"
-                android:textSize="11sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="HEALTH"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 android:textColor="#132214"
+                android:includeFontPadding="false"
                 android:maxLines="1"
                 android:ellipsize="end" />
         </FrameLayout>
@@ -54,10 +55,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingEnd="8dp"
-            android:text="Starts in 10m"
-            android:textSize="11sp"
+            android:paddingEnd="6dp"
+            android:text="Starting on time • 09:26 pm"
+            android:textSize="10sp"
             android:textColor="#8FA0B9"
+            android:includeFontPadding="false"
             android:maxLines="1" />
     </LinearLayout>
 
@@ -65,7 +67,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="96dp">
+        android:minHeight="68dp">
 
         <ImageView
             android:id="@+id/notification_body_bg"
@@ -78,20 +80,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp">
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <!-- Title & Subtitle -->
             <TextView
                 android:id="@+id/notification_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task Title"
-                android:textSize="17sp"
+                android:text="run around"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#132214"
+                android:includeFontPadding="false"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
@@ -99,10 +102,11 @@
                 android:id="@+id/notification_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="Category or Subtitle"
-                android:textSize="13sp"
+                android:layout_marginTop="2dp"
+                android:text="Health • 09:26 pm"
+                android:textSize="12sp"
                 android:textColor="#38523A"
+                android:includeFontPadding="false"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
@@ -111,23 +115,24 @@
                 android:id="@+id/notification_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/notification_badge_bg"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:text="10:00 am - 12:00 pm"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 android:textColor="#132214"
+                android:includeFontPadding="false"
                 android:maxLines="1" />
 
             <!-- Actions Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal"
                 android:gravity="end">
 
@@ -136,13 +141,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/notification_btn_action_bg"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:text="✓ Mark Done"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
+                    android:includeFontPadding="false"
                     android:textColor="#132214" />
 
                 <TextView
@@ -151,13 +157,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/notification_btn_action_bg"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:text="Open App"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
+                    android:includeFontPadding="false"
                     android:textColor="#132214" />
             </LinearLayout>
         </LinearLayout>

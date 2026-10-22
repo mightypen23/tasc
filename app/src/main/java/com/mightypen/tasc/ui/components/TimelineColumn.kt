@@ -50,6 +50,8 @@ fun TimelineColumn(
         date = task.date,
         isCompleted = task.status == TaskStatus.COMPLETED,
         isRejected = task.status == TaskStatus.REJECTED,
+        isOverdue = task.status == TaskStatus.OVERDUE,
+        savedProgress = task.progress,
         activeColor = activeColor,
         height = height,
         modifier = modifier
@@ -67,6 +69,8 @@ fun TimelineColumn(
     date: String? = null,
     isCompleted: Boolean = false,
     isRejected: Boolean = false,
+    isOverdue: Boolean = false,
+    savedProgress: Int = 0,
     activeColor: Color = TimelineDashedLine,
     height: Dp = 130.dp,
     modifier: Modifier = Modifier
@@ -85,12 +89,20 @@ fun TimelineColumn(
         date,
         isCompleted,
         isRejected,
+        isOverdue,
+        savedProgress,
         currentTime
     ) {
         if (isRejected) {
             return@remember 0f to false
         }
         if (isCompleted) {
+            // When completed, freeze solid progress bar right at saved progress and hide crossbar indicator
+            val prog = (savedProgress / 100f).coerceIn(0f, 1f)
+            return@remember prog to false
+        }
+        if (isOverdue) {
+            // When overdue (interval is over), fill progress bar completely and hide crossbar indicator
             return@remember 1f to false
         }
 
@@ -110,6 +122,7 @@ fun TimelineColumn(
         if (currentTime.isBefore(parsedStart)) {
             0f to false
         } else if (!currentTime.isBefore(actualEnd)) {
+            // Interval is over: full progress, crossbar tick disappears
             1f to false
         } else {
             val totalSeconds = ChronoUnit.SECONDS.between(parsedStart, actualEnd).coerceAtLeast(1)

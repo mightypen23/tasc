@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -35,6 +36,7 @@ import androidx.compose.material.icons.filled.DoneAll
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -78,6 +80,26 @@ fun TaskCard(
     var menuExpanded by remember { mutableStateOf(false) }
 
     val isCompleted = task.status == TaskStatus.COMPLETED
+    val isOverdue = task.status == TaskStatus.OVERDUE && !isCompleted
+
+    // Greyscale palette calculation for completed state
+    val doneBackground = remember(palette.background) {
+        val lum = 0.299f * palette.background.red + 0.587f * palette.background.green + 0.114f * palette.background.blue
+        if (lum > 0.45f) {
+            // Muted, sophisticated cool silver-slate grey for light pastel cards
+            Color(0xFF9EACB9)
+        } else {
+            // Muted slate grey for dark cards
+            Color(0xFF334155)
+        }
+    }
+    val doneTextColor = remember(doneBackground) {
+        val lum = 0.299f * doneBackground.red + 0.587f * doneBackground.green + 0.114f * doneBackground.blue
+        if (lum > 0.45f) Color(0xFF14202B) else Color(0xFFF1F5F9)
+    }
+    val doneSubtextColor = remember(doneTextColor) {
+        doneTextColor.copy(alpha = 0.72f)
+    }
 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -96,6 +118,11 @@ fun TaskCard(
         animationSpec = tween(durationMillis = 400, easing = FastOutSlowInEasing),
         label = "completionProgress"
     )
+
+    // Smooth animated color interpolation between theme color and greyscale
+    val currentCardBg = androidx.compose.ui.graphics.lerp(palette.background, doneBackground, completionProgress)
+    val currentCardText = androidx.compose.ui.graphics.lerp(palette.text, doneTextColor, completionProgress)
+    val currentCardSubtext = androidx.compose.ui.graphics.lerp(palette.subtext, doneSubtextColor, completionProgress)
 
     // Guard so shimmer sweep ONLY runs when this specific task is marked complete by user,
     // and never on screen load or when other tasks update.
@@ -133,7 +160,7 @@ fun TaskCard(
             .fillMaxWidth()
             .scale(cardScale)
     ) {
-        // 1. Colored notched card background and main body
+        // 1. Notched card background and main body (transitions smoothly to greyscale on Done)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -145,7 +172,7 @@ fun TaskCard(
                         filletRadius = 14.dp
                     )
                 )
-                .background(palette.background)
+                .background(currentCardBg)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -165,13 +192,13 @@ fun TaskCard(
                     val sealAlpha = 0.07f * completionProgress
 
                     drawCircle(
-                        color = palette.text.copy(alpha = sealAlpha),
+                        color = currentCardText.copy(alpha = sealAlpha),
                         radius = 36.dp.toPx(),
                         center = center,
                         style = Stroke(width = 1.5.dp.toPx())
                     )
                     drawCircle(
-                        color = palette.text.copy(alpha = sealAlpha * 0.7f),
+                        color = currentCardText.copy(alpha = sealAlpha * 0.7f),
                         radius = 28.dp.toPx(),
                         center = center,
                         style = Stroke(width = 1.dp.toPx())
@@ -206,7 +233,7 @@ fun TaskCard(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Top Tab Header row (displays Task Category instead of progress)
+                // Top Tab Header row (displays Task Category with Completed/Overdue indicators)
                 Box(
                     modifier = Modifier
                         .width(tabWidth)
@@ -215,39 +242,61 @@ fun TaskCard(
                     contentAlignment = Alignment.CenterStart
                 ) {
                     AnimatedContent(
-                        targetState = isCompleted,
+                        targetState = if (isCompleted) "COMPLETED" else if (isOverdue) "OVERDUE" else "NORMAL",
                         transitionSpec = {
                             fadeIn(tween(250)) togetherWith fadeOut(tween(200))
                         },
                         label = "tabCategoryAnim"
-                    ) { completed ->
-                        if (completed) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Filled.CheckCircle,
-                                    contentDescription = null,
-                                    tint = palette.text,
-                                    modifier = Modifier.size(13.dp)
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
+                    ) { tabState ->
+                        when (tabState) {
+                            "COMPLETED" -> {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = Icons.Filled.CheckCircle,
+                                        contentDescription = null,
+                                        tint = currentCardText,
+                                        modifier = Modifier.size(13.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(
+                                        text = categoryText,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = currentCardText,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
+                            "OVERDUE" -> {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(8.dp)
+                                            .clip(CircleShape)
+                                            .background(Color(0xFFE53935))
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = categoryText,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = currentCardText,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
+                            else -> {
                                 Text(
                                     text = categoryText,
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = palette.text,
+                                    color = currentCardText,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                             }
-                        } else {
-                            Text(
-                                text = categoryText,
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = palette.text,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
                         }
                     }
                 }
@@ -263,7 +312,7 @@ fun TaskCard(
                     TaskCheckbox(
                         checked = isCompleted,
                         onCheckedChange = onToggleComplete,
-                        accentColor = palette.background,
+                        accentColor = currentCardBg,
                         size = checkboxSize
                     )
 
@@ -282,7 +331,7 @@ fun TaskCard(
                                 text = task.title,
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isCompleted) palette.text.copy(alpha = 0.72f) else palette.text,
+                                color = if (isCompleted) currentCardText.copy(alpha = 0.85f) else currentCardText,
                                 maxLines = 1,
                                 modifier = Modifier.weight(1f, fill = false)
                             )
@@ -294,14 +343,14 @@ fun TaskCard(
                                     modifier = Modifier
                                         .scale(completionProgress)
                                         .clip(RoundedCornerShape(6.dp))
-                                        .background(palette.text.copy(alpha = 0.14f))
+                                        .background(currentCardText.copy(alpha = 0.14f))
                                         .padding(horizontal = 6.dp, vertical = 2.dp)
                                 ) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Icon(
                                             imageVector = Icons.Filled.DoneAll,
                                             contentDescription = null,
-                                            tint = palette.text,
+                                            tint = currentCardText,
                                             modifier = Modifier.size(11.dp)
                                         )
                                         Spacer(modifier = Modifier.width(3.dp))
@@ -309,7 +358,32 @@ fun TaskCard(
                                             text = "Done",
                                             fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
-                                            color = palette.text
+                                            color = currentCardText
+                                        )
+                                    }
+                                }
+                            } else if (isOverdue) {
+                                // Eye-catching Overdue badge when task interval is finished
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(6.dp))
+                                        .background(Color(0xFFE53935))
+                                        .padding(horizontal = 7.dp, vertical = 2.dp)
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Warning,
+                                            contentDescription = "Overdue",
+                                            tint = Color.White,
+                                            modifier = Modifier.size(11.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(3.dp))
+                                        Text(
+                                            text = "Overdue",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            color = Color.White
                                         )
                                     }
                                 }
@@ -327,8 +401,8 @@ fun TaskCard(
                                     .background(
                                         Brush.horizontalGradient(
                                             colors = listOf(
-                                                palette.text.copy(alpha = 0.80f),
-                                                palette.text.copy(alpha = 0.30f),
+                                                currentCardText.copy(alpha = 0.80f),
+                                                currentCardText.copy(alpha = 0.30f),
                                                 Color.Transparent
                                             )
                                         )
@@ -341,7 +415,7 @@ fun TaskCard(
                             text = task.subtitle,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Normal,
-                            color = if (isCompleted) palette.subtext.copy(alpha = 0.75f) else palette.subtext,
+                            color = if (isCompleted) currentCardSubtext.copy(alpha = 0.80f) else currentCardSubtext,
                             maxLines = 1
                         )
                     }
@@ -355,7 +429,7 @@ fun TaskCard(
                             Icon(
                                 imageVector = Icons.Filled.MoreVert,
                                 contentDescription = "Task options",
-                                tint = palette.text.copy(alpha = 0.85f),
+                                tint = currentCardText.copy(alpha = 0.85f),
                                 modifier = Modifier.size(20.dp)
                             )
                         }

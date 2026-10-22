@@ -43,7 +43,8 @@ class TaskAlarmReceiver : BroadcastReceiver() {
                         val dbHelper = TaskDatabaseHelper(context)
                         val task = dbHelper.getTaskById(taskId)
                         if (task != null) {
-                            dbHelper.updateTask(task.copy(status = TaskStatus.COMPLETED, progress = 100))
+                            val elapsedProgress = com.mightypen.tasc.model.calculateElapsedProgress(task)
+                            dbHelper.updateTask(task.copy(status = TaskStatus.COMPLETED, progress = elapsedProgress))
                             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                             notificationManager.cancel(taskId.toInt())
                         }
