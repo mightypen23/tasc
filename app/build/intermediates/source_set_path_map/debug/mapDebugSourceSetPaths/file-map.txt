@@ -1,0 +1,51 @@
+com.mightypen.tasc.app-runtime-release-0 C:\Users\hp\.gradle\caches\9.3.1\transforms\08e727b64b0b9a960a1df77bc8f942cd\workspace\transformed\runtime-release\res
+com.mightypen.tasc.app-material-ripple-release-1 C:\Users\hp\.gradle\caches\9.3.1\transforms\0b81769ceb049f1fe7546cd1cb011fee\workspace\transformed\material-ripple-release\res
+com.mightypen.tasc.app-ui-unit-release-2 C:\Users\hp\.gradle\caches\9.3.1\transforms\148d12fcf91a3fe37a6245330452cc22\workspace\transformed\ui-unit-release\res
+com.mightypen.tasc.app-core-runtime-2.2.0-3 C:\Users\hp\.gradle\caches\9.3.1\transforms\22573c98f0e7e762381fe975ed6745fc\workspace\transformed\core-runtime-2.2.0\res
+com.mightypen.tasc.app-foundation-layout-release-4 C:\Users\hp\.gradle\caches\9.3.1\transforms\22de1c329f826b560d4d48fe98997fef\workspace\transformed\foundation-layout-release\res
+com.mightypen.tasc.app-ui-tooling-preview-release-5 C:\Users\hp\.gradle\caches\9.3.1\transforms\242c70504b1126682721afea4c63c47c\workspace\transformed\ui-tooling-preview-release\res
+com.mightypen.tasc.app-ui-geometry-release-6 C:\Users\hp\.gradle\caches\9.3.1\transforms\29708387a4d232a88a0d6f6a8f5d38df\workspace\transformed\ui-geometry-release\res
+com.mightypen.tasc.app-lifecycle-livedata-core-2.8.7-7 C:\Users\hp\.gradle\caches\9.3.1\transforms\2dcc8bed2dd17fe2782ae743b2a12ffe\workspace\transformed\lifecycle-livedata-core-2.8.7\res
+com.mightypen.tasc.app-emoji2-1.3.0-8 C:\Users\hp\.gradle\caches\9.3.1\transforms\2f0f55fef588eef4356484d57d26b69b\workspace\transformed\emoji2-1.3.0\res
+com.mightypen.tasc.app-lifecycle-viewmodel-release-9 C:\Users\hp\.gradle\caches\9.3.1\transforms\398d114b419d2c163ef8bb9ff8c0b52d\workspace\transformed\lifecycle-viewmodel-release\res
+com.mightypen.tasc.app-material3-release-10 C:\Users\hp\.gradle\caches\9.3.1\transforms\3fb3cb8f1d64c1d6d844a21240009f9d\workspace\transformed\material3-release\res
+com.mightypen.tasc.app-savedstate-1.2.1-11 C:\Users\hp\.gradle\caches\9.3.1\transforms\50064ebb69b3be9ec3ae90d05ae35ff0\workspace\transformed\savedstate-1.2.1\res
+com.mightypen.tasc.app-ui-util-release-12 C:\Users\hp\.gradle\caches\9.3.1\transforms\51fa80f9f6f44165b914ee241871000f\workspace\transformed\ui-util-release\res
+com.mightypen.tasc.app-activity-1.9.3-13 C:\Users\hp\.gradle\caches\9.3.1\transforms\5492adbe2c914f6eb428f594e7d4e363\workspace\transformed\activity-1.9.3\res
+com.mightypen.tasc.app-animation-release-14 C:\Users\hp\.gradle\caches\9.3.1\transforms\622f12cca3ba315ee4faac14e9fe2a10\workspace\transformed\animation-release\res
+com.mightypen.tasc.app-activity-compose-1.9.3-15 C:\Users\hp\.gradle\caches\9.3.1\transforms\7039634a385d5be36c4027e5eaeb8eb5\workspace\transformed\activity-compose-1.9.3\res
+com.mightypen.tasc.app-ui-graphics-release-16 C:\Users\hp\.gradle\caches\9.3.1\transforms\732d14c242f9a72f0bcaa5379ab08903\workspace\transformed\ui-graphics-release\res
+com.mightypen.tasc.app-lifecycle-process-2.8.7-17 C:\Users\hp\.gradle\caches\9.3.1\transforms\745209f70b79c93c3202cbab8e6b995c\workspace\transformed\lifecycle-process-2.8.7\res
+com.mightypen.tasc.app-lifecycle-runtime-compose-release-18 C:\Users\hp\.gradle\caches\9.3.1\transforms\74b7d27a44cbc9be31d6ece3e1b860bc\workspace\transformed\lifecycle-runtime-compose-release\res
+com.mightypen.tasc.app-ui-tooling-release-19 C:\Users\hp\.gradle\caches\9.3.1\transforms\74c0713c1a1d3373e98603a85f4f2266\workspace\transformed\ui-tooling-release\res
+com.mightypen.tasc.app-material-icons-core-release-20 C:\Users\hp\.gradle\caches\9.3.1\transforms\7873be64a23a219bb3ccaccda924b639\workspace\transformed\material-icons-core-release\res
+com.mightypen.tasc.app-activity-ktx-1.9.3-21 C:\Users\hp\.gradle\caches\9.3.1\transforms\78cabfd69f4939fa869ccd5314db5a79\workspace\transformed\activity-ktx-1.9.3\res
+com.mightypen.tasc.app-ui-release-22 C:\Users\hp\.gradle\caches\9.3.1\transforms\821a3d710a23b6374e03caaa56c8b1a7\workspace\transformed\ui-release\res
+com.mightypen.tasc.app-graphics-path-1.0.1-23 C:\Users\hp\.gradle\caches\9.3.1\transforms\83f64cb5a6baa19df2a7320afb8db75e\workspace\transformed\graphics-path-1.0.1\res
+com.mightypen.tasc.app-material-icons-extended-release-24 C:\Users\hp\.gradle\caches\9.3.1\transforms\88529fafe33094f27cd6f49d8b930dd4\workspace\transformed\material-icons-extended-release\res
+com.mightypen.tasc.app-lifecycle-viewmodel-ktx-2.8.7-25 C:\Users\hp\.gradle\caches\9.3.1\transforms\9b3cc39bb62b7a494dc3f0c79dec4232\workspace\transformed\lifecycle-viewmodel-ktx-2.8.7\res
+com.mightypen.tasc.app-material-release-26 C:\Users\hp\.gradle\caches\9.3.1\transforms\9d12ee20548bfc7495f5d79d2be3278e\workspace\transformed\material-release\res
+com.mightypen.tasc.app-annotation-experimental-1.4.1-27 C:\Users\hp\.gradle\caches\9.3.1\transforms\9d286e6b7aa6e1811d727629fab11335\workspace\transformed\annotation-experimental-1.4.1\res
+com.mightypen.tasc.app-runtime-saveable-release-28 C:\Users\hp\.gradle\caches\9.3.1\transforms\9f0e20eda1df607e2f5d87072bf5332a\workspace\transformed\runtime-saveable-release\res
+com.mightypen.tasc.app-profileinstaller-1.3.1-29 C:\Users\hp\.gradle\caches\9.3.1\transforms\a2531332f18b7dfdfe1acef93b69f2e6\workspace\transformed\profileinstaller-1.3.1\res
+com.mightypen.tasc.app-core-1.15.0-30 C:\Users\hp\.gradle\caches\9.3.1\transforms\a3baf56bf051f336155d43b3a1167397\workspace\transformed\core-1.15.0\res
+com.mightypen.tasc.app-foundation-release-31 C:\Users\hp\.gradle\caches\9.3.1\transforms\a478bcb403d9b3b504d457743d234325\workspace\transformed\foundation-release\res
+com.mightypen.tasc.app-startup-runtime-1.1.1-32 C:\Users\hp\.gradle\caches\9.3.1\transforms\a8c3392a77fdeeb28e21c63af9c5a7a9\workspace\transformed\startup-runtime-1.1.1\res
+com.mightypen.tasc.app-savedstate-ktx-1.2.1-33 C:\Users\hp\.gradle\caches\9.3.1\transforms\a9ee6557455fb40bcced7facb26bff2f\workspace\transformed\savedstate-ktx-1.2.1\res
+com.mightypen.tasc.app-ui-tooling-data-release-34 C:\Users\hp\.gradle\caches\9.3.1\transforms\bcdd8bc5a3ffb19f5105b2329b28c196\workspace\transformed\ui-tooling-data-release\res
+com.mightypen.tasc.app-lifecycle-runtime-ktx-release-35 C:\Users\hp\.gradle\caches\9.3.1\transforms\c05a69545ddd27cb76151c0581a630f6\workspace\transformed\lifecycle-runtime-ktx-release\res
+com.mightypen.tasc.app-lifecycle-viewmodel-compose-release-36 C:\Users\hp\.gradle\caches\9.3.1\transforms\cdb14093be5604ddeecaa6595ce76ada\workspace\transformed\lifecycle-viewmodel-compose-release\res
+com.mightypen.tasc.app-animation-core-release-37 C:\Users\hp\.gradle\caches\9.3.1\transforms\d7fdf0694dcf53d6286fdf32d3c2b4cf\workspace\transformed\animation-core-release\res
+com.mightypen.tasc.app-core-ktx-1.15.0-38 C:\Users\hp\.gradle\caches\9.3.1\transforms\d925596b8d2de120a8449f973ae1ff4c\workspace\transformed\core-ktx-1.15.0\res
+com.mightypen.tasc.app-lifecycle-runtime-release-39 C:\Users\hp\.gradle\caches\9.3.1\transforms\dc951a1d3cbf28ade6653191cddfe5f6\workspace\transformed\lifecycle-runtime-release\res
+com.mightypen.tasc.app-ui-text-release-40 C:\Users\hp\.gradle\caches\9.3.1\transforms\e6ae007b361b238c8c928b9e740cf694\workspace\transformed\ui-text-release\res
+com.mightypen.tasc.app-tracing-1.2.0-41 C:\Users\hp\.gradle\caches\9.3.1\transforms\e74f9cb4dbd33f51d30cd6776998f5c3\workspace\transformed\tracing-1.2.0\res
+com.mightypen.tasc.app-customview-poolingcontainer-1.0.0-42 C:\Users\hp\.gradle\caches\9.3.1\transforms\eb59a4ad9fd25a36c5325e4139c6a004\workspace\transformed\customview-poolingcontainer-1.0.0\res
+com.mightypen.tasc.app-lifecycle-viewmodel-savedstate-2.8.7-43 C:\Users\hp\.gradle\caches\9.3.1\transforms\f82d23a79bfec337d58e1b112365ec9b\workspace\transformed\lifecycle-viewmodel-savedstate-2.8.7\res
+com.mightypen.tasc.app-pngs-44 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\build\generated\res\pngs\debug
+com.mightypen.tasc.app-resValues-45 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\build\generated\res\resValues\debug
+com.mightypen.tasc.app-packageDebugResources-46 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.mightypen.tasc.app-packageDebugResources-47 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.mightypen.tasc.app-debug-48 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.mightypen.tasc.app-debug-49 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\debug\res
+com.mightypen.tasc.app-main-50 C:\Users\hp\Desktop\Mes'\Personal Projects\tasc\app\src\main\res

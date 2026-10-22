@@ -1,0 +1,27 @@
+R_DEF: Internal format may change without notice
+local
+color background_navy
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable ic_notification_folder
+drawable notification_badge_bg
+drawable notification_btn_action_bg
+drawable notification_folder_body_bg
+drawable notification_folder_tab_bg
+id notification_body_bg
+id notification_btn_done
+id notification_btn_open
+id notification_category
+id notification_subtitle
+id notification_tab_bg
+id notification_time
+id notification_time_tag
+id notification_title
+layout notification_folder_collapsed
+layout notification_folder_expanded
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.Tasc
