@@ -65,7 +65,7 @@ import com.mightypen.tasc.ui.components.TimelineHorizontalDivider
 import com.mightypen.tasc.ui.components.TopBarHeader
 import com.mightypen.tasc.ui.theme.AppBackgroundBottom
 import com.mightypen.tasc.ui.theme.AppBackgroundDark
-import com.mightypen.tasc.ui.theme.AppBackgroundTop
+import com.mightypen.tasc.ui.theme.AppBackgroundTop=
 import com.mightypen.tasc.ui.theme.SelectedDatePill
 import com.mightypen.tasc.ui.theme.SelectedDateText
 import com.mightypen.tasc.ui.theme.getCardPalette

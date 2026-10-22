@@ -8,6 +8,7 @@ import android.util.Log
 import com.mightypen.tasc.NotificationHelper
 import com.mightypen.tasc.data.TaskDatabaseHelper
 import com.mightypen.tasc.model.TaskStatus
+import com.mightypen.tasc.model.calculateElapsedProgress
 
 class TaskAlarmReceiver : BroadcastReceiver() {
 
@@ -43,7 +44,7 @@ class TaskAlarmReceiver : BroadcastReceiver() {
                         val dbHelper = TaskDatabaseHelper(context)
                         val task = dbHelper.getTaskById(taskId)
                         if (task != null) {
-                            val elapsedProgress = com.mightypen.tasc.model.calculateElapsedProgress(task)
+                            val elapsedProgress = task.calculateElapsedProgress()
                             dbHelper.updateTask(task.copy(status = TaskStatus.COMPLETED, progress = elapsedProgress))
                             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                             notificationManager.cancel(taskId.toInt())

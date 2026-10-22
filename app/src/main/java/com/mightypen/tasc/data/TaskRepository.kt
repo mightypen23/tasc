@@ -3,6 +3,8 @@ package com.mightypen.tasc.data
 import android.content.Context
 import com.mightypen.tasc.model.Task
 import com.mightypen.tasc.model.TaskStatus
+import com.mightypen.tasc.model.calculateElapsedProgress
+import com.mightypen.tasc.model.isOverdue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,7 +33,7 @@ class TaskRepository(context: Context) {
             if (task.status != TaskStatus.COMPLETED &&
                 task.status != TaskStatus.REJECTED &&
                 task.status != TaskStatus.OVERDUE &&
-                com.mightypen.tasc.model.isOverdue(task, now)
+                task.isOverdue(now)
             ) {
                 val overdueTask = task.copy(status = TaskStatus.OVERDUE, progress = 100)
                 dbHelper.updateTask(overdueTask)
@@ -79,11 +81,11 @@ class TaskRepository(context: Context) {
         val isNowCompleted = task.status != TaskStatus.COMPLETED
         val updated = if (isNowCompleted) {
             // Task marked complete before or at interval end: freeze at current elapsed percentage
-            val progressAtCompletion = com.mightypen.tasc.model.calculateElapsedProgress(task)
+            val progressAtCompletion = task.calculateElapsedProgress()
             task.copy(status = TaskStatus.COMPLETED, progress = progressAtCompletion)
         } else {
             // Uncompleting: if interval has already passed, revert to OVERDUE; else RUNNING
-            val isNowOverdue = com.mightypen.tasc.model.isOverdue(task)
+            val isNowOverdue = task.isOverdue()
             val restoredStatus = if (isNowOverdue) TaskStatus.OVERDUE else TaskStatus.RUNNING
             val restoredProgress = if (isNowOverdue) 100 else 0
             task.copy(status = restoredStatus, progress = restoredProgress)
@@ -93,7 +95,7 @@ class TaskRepository(context: Context) {
 
     suspend fun updateTaskStatus(task: Task, status: TaskStatus): Boolean {
         val newProgress = when (status) {
-            TaskStatus.COMPLETED -> com.mightypen.tasc.model.calculateElapsedProgress(task)
+            TaskStatus.COMPLETED -> task.calculateElapsedProgress()
             TaskStatus.OVERDUE -> 100
             TaskStatus.REJECTED -> 0
             TaskStatus.UPCOMING -> 0

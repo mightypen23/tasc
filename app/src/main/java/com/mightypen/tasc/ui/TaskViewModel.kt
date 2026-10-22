@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.mightypen.tasc.data.TaskRepository
 import com.mightypen.tasc.model.Task
 import com.mightypen.tasc.model.TaskStatus
+import com.mightypen.tasc.model.isOverdue
 import com.mightypen.tasc.ui.components.CalendarDayItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -156,7 +157,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
                     it.status != TaskStatus.COMPLETED &&
                     it.status != TaskStatus.REJECTED &&
                     it.status != TaskStatus.OVERDUE &&
-                    com.mightypen.tasc.model.isOverdue(it, now)
+                    it.isOverdue(now)
                 }
                 if (anyBecameOverdue) {
                     refreshCurrentDayTasks(direction = 0)

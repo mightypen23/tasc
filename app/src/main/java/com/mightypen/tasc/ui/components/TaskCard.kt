@@ -57,6 +57,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -82,25 +83,6 @@ fun TaskCard(
     val isCompleted = task.status == TaskStatus.COMPLETED
     val isOverdue = task.status == TaskStatus.OVERDUE && !isCompleted
 
-    // Greyscale palette calculation for completed state
-    val doneBackground = remember(palette.background) {
-        val lum = 0.299f * palette.background.red + 0.587f * palette.background.green + 0.114f * palette.background.blue
-        if (lum > 0.45f) {
-            // Muted, sophisticated cool silver-slate grey for light pastel cards
-            Color(0xFF9EACB9)
-        } else {
-            // Muted slate grey for dark cards
-            Color(0xFF334155)
-        }
-    }
-    val doneTextColor = remember(doneBackground) {
-        val lum = 0.299f * doneBackground.red + 0.587f * doneBackground.green + 0.114f * doneBackground.blue
-        if (lum > 0.45f) Color(0xFF14202B) else Color(0xFFF1F5F9)
-    }
-    val doneSubtextColor = remember(doneTextColor) {
-        doneTextColor.copy(alpha = 0.72f)
-    }
-
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val cardScale by animateFloatAsState(
@@ -118,11 +100,6 @@ fun TaskCard(
         animationSpec = tween(durationMillis = 400, easing = FastOutSlowInEasing),
         label = "completionProgress"
     )
-
-    // Smooth animated color interpolation between theme color and greyscale
-    val currentCardBg = androidx.compose.ui.graphics.lerp(palette.background, doneBackground, completionProgress)
-    val currentCardText = androidx.compose.ui.graphics.lerp(palette.text, doneTextColor, completionProgress)
-    val currentCardSubtext = androidx.compose.ui.graphics.lerp(palette.subtext, doneSubtextColor, completionProgress)
 
     // Guard so shimmer sweep ONLY runs when this specific task is marked complete by user,
     // and never on screen load or when other tasks update.
@@ -160,7 +137,7 @@ fun TaskCard(
             .fillMaxWidth()
             .scale(cardScale)
     ) {
-        // 1. Notched card background and main body (transitions smoothly to greyscale on Done)
+        // 1. Notched card background and main body (retains original theme color)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -172,7 +149,7 @@ fun TaskCard(
                         filletRadius = 14.dp
                     )
                 )
-                .background(currentCardBg)
+                .background(palette.background)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
@@ -192,13 +169,13 @@ fun TaskCard(
                     val sealAlpha = 0.07f * completionProgress
 
                     drawCircle(
-                        color = currentCardText.copy(alpha = sealAlpha),
+                        color = palette.text.copy(alpha = sealAlpha),
                         radius = 36.dp.toPx(),
                         center = center,
                         style = Stroke(width = 1.5.dp.toPx())
                     )
                     drawCircle(
-                        color = currentCardText.copy(alpha = sealAlpha * 0.7f),
+                        color = palette.text.copy(alpha = sealAlpha * 0.7f),
                         radius = 28.dp.toPx(),
                         center = center,
                         style = Stroke(width = 1.dp.toPx())
@@ -254,7 +231,7 @@ fun TaskCard(
                                     Icon(
                                         imageVector = Icons.Filled.CheckCircle,
                                         contentDescription = null,
-                                        tint = currentCardText,
+                                        tint = palette.text,
                                         modifier = Modifier.size(13.dp)
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
@@ -262,7 +239,7 @@ fun TaskCard(
                                         text = categoryText,
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = currentCardText,
+                                        color = palette.text,
                                         maxLines = 1,
                                         overflow = TextOverflow.Ellipsis
                                     )
@@ -281,7 +258,7 @@ fun TaskCard(
                                         text = categoryText,
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = currentCardText,
+                                        color = palette.text,
                                         maxLines = 1,
                                         overflow = TextOverflow.Ellipsis
                                     )
@@ -292,7 +269,7 @@ fun TaskCard(
                                     text = categoryText,
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = currentCardText,
+                                    color = palette.text,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
@@ -312,13 +289,13 @@ fun TaskCard(
                     TaskCheckbox(
                         checked = isCompleted,
                         onCheckedChange = onToggleComplete,
-                        accentColor = currentCardBg,
+                        accentColor = palette.background,
                         size = checkboxSize
                     )
 
                     Spacer(modifier = Modifier.width(14.dp))
 
-                    // Center: Creative Title & Subtitle (Accomplishment badge + signature underline - NO strikethrough!)
+                    // Center: Creative Title & Subtitle with Strikethrough when done
                     Column(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.Center
@@ -331,7 +308,8 @@ fun TaskCard(
                                 text = task.title,
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isCompleted) currentCardText.copy(alpha = 0.85f) else currentCardText,
+                                color = if (isCompleted) palette.text.copy(alpha = 0.72f) else palette.text,
+                                textDecoration = if (isCompleted) TextDecoration.LineThrough else TextDecoration.None,
                                 maxLines = 1,
                                 modifier = Modifier.weight(1f, fill = false)
                             )
@@ -343,14 +321,14 @@ fun TaskCard(
                                     modifier = Modifier
                                         .scale(completionProgress)
                                         .clip(RoundedCornerShape(6.dp))
-                                        .background(currentCardText.copy(alpha = 0.14f))
+                                        .background(palette.text.copy(alpha = 0.14f))
                                         .padding(horizontal = 6.dp, vertical = 2.dp)
                                 ) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Icon(
                                             imageVector = Icons.Filled.DoneAll,
                                             contentDescription = null,
-                                            tint = currentCardText,
+                                            tint = palette.text,
                                             modifier = Modifier.size(11.dp)
                                         )
                                         Spacer(modifier = Modifier.width(3.dp))
@@ -358,7 +336,7 @@ fun TaskCard(
                                             text = "Done",
                                             fontSize = 10.sp,
                                             fontWeight = FontWeight.Bold,
-                                            color = currentCardText
+                                            color = palette.text
                                         )
                                     }
                                 }
@@ -401,8 +379,8 @@ fun TaskCard(
                                     .background(
                                         Brush.horizontalGradient(
                                             colors = listOf(
-                                                currentCardText.copy(alpha = 0.80f),
-                                                currentCardText.copy(alpha = 0.30f),
+                                                palette.text.copy(alpha = 0.80f),
+                                                palette.text.copy(alpha = 0.30f),
                                                 Color.Transparent
                                             )
                                         )
@@ -415,7 +393,7 @@ fun TaskCard(
                             text = task.subtitle,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Normal,
-                            color = if (isCompleted) currentCardSubtext.copy(alpha = 0.80f) else currentCardSubtext,
+                            color = if (isCompleted) palette.subtext.copy(alpha = 0.75f) else palette.subtext,
                             maxLines = 1
                         )
                     }
@@ -429,7 +407,7 @@ fun TaskCard(
                             Icon(
                                 imageVector = Icons.Filled.MoreVert,
                                 contentDescription = "Task options",
-                                tint = currentCardText.copy(alpha = 0.85f),
+                                tint = palette.text.copy(alpha = 0.85f),
                                 modifier = Modifier.size(20.dp)
                             )
                         }
